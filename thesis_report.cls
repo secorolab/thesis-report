@@ -63,7 +63,7 @@
 \RequirePackage{setspace}
 \RequirePackage{subfiles} % Chapters in separate files
 \RequirePackage{titling} % Provides \theauthor and \thetitle
-\RequirePackage{pdfpages} % Include the signed declaration PDF
+\RequirePackage{enumitem} % Compact lists in the declarations
 \RequirePackage[nottoc]{tocbibind} % List of figures/tables in the table of contents
 \RequirePackage{url}
 \RequirePackage[backend=biber,style=numeric-comp,backref=true]{biblatex} % Add sources with \addbibresource in the document
@@ -166,22 +166,105 @@ Supervised by\par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Declaration of authorship
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The Eigenständigkeitserklärung (declaration of authorship) form from the
-% Prüfungsamt is included as a flattened PDF; pdfTeX drops form fields, so the
-% fillable form itself cannot be included. Page 1 of the official form only
-% contains notes, so only the declarations on pages 2-4 are included by
-% default.
-\newcommand*{\declarationfile}[1]{\gdef\@declarationfile{#1}%
+% English wording of the official declarations of the Prüfungsamt of Faculty 3
+% (form "Eigenständigkeitserklärung BA MA deutsch englisch", Stand: 11/24).
+% The wording has to be adopted unchanged.
+\newcommand*{\firstname}[1]{\gdef\@firstname{#1}%
 }
-\declarationfile{declaration/Eigenstaendigkeitserklaerung.pdf}
+\newcommand*{\@firstname}{\texttt{\string\firstname} not set}
+\newcommand*{\lastname}[1]{\gdef\@lastname{#1}%
+}
+\newcommand*{\@lastname}{\texttt{\string\lastname} not set}
+\author{\@firstname\ \@lastname}
 
-\newcommand*{\declarationpages}[1]{\gdef\@declarationpages{#1}%
+\newcommand*{\matriculationnumber}[1]{\gdef\@matriculationnumber{#1}%
 }
-\declarationpages{2-4}
+\newcommand*{\@matriculationnumber}{\texttt{\string\matriculationnumber} not set}
+
+% Choices: \declarationai{yes}, \declarationarchive{agree|after30|disagree},
+% \declarationplagiarism{agree|disagree}; unset choices stay unticked
+\newcommand*{\declarationai}[1]{\def\@declarationai{#1}}
+\newcommand*{\declarationarchive}[1]{\def\@declarationarchive{#1}}
+\newcommand*{\declarationplagiarism}[1]{\def\@declarationplagiarism{#1}}
+\declarationai{}
+\declarationarchive{}
+\declarationplagiarism{}
+
+% Ticked box if the choice #1 equals #2, followed by the text #3
+\newcommand{\@declarationchoice}[3]{%
+    \def\@tempa{#2}%
+    \par\noindent\hangindent=1.8em\hangafter=1
+    \makebox[1.8em][l]{\ifx#1\@tempa$\boxtimes$\else$\square$\fi}#3\par\smallskip
+}
+
+\newcommand{\@declarationheading}[1]{\par\medskip\noindent\textbf{#1}\par\smallskip}
 
 \newcommand*{\declarationpage}{%
 \cleardoublepage
-\includepdf[pages={\@declarationpages},pagecommand={\thispagestyle{empty}}]{\@declarationfile}
+% Same title font as the chapters, but with less spacing so that everything fits on one page
+\begin{flushright}\Huge Declarations\end{flushright}
+\enlargethispage{2\baselineskip}
+\begingroup
+\small
+\singlespacing
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+
+\noindent\textbf{Declarations of Authorship and Consent for Checking with Plagiarism Software and the
+Declaration of Publication for Bachelor's and Master's Thesis}
+
+\medskip
+\noindent
+\begin{tabular}{@{}l@{\hspace{0.5em}}l@{\hspace{2em}}l@{\hspace{0.5em}}l@{\hspace{2em}}l@{\hspace{0.5em}}l@{}}
+    Student ID: & \@matriculationnumber & Surname: & \@lastname & First Name: & \@firstname
+\end{tabular}\par
+\noindent Title of Thesis:\hspace{0.5em}\@title\par
+
+\@declarationheading{A) Declaration of Authorship}
+I hereby affirm that I have written the present work independently and have used no sources or aids other than
+those indicated. All parts of my work that have been taken from other works, either verbatim or in terms of
+meaning, have been marked as such, indicating the source. The same applies to drawings, sketches, pictorial
+representations and sources from the Internet, including AI-based applications or tools. The work has not yet
+been submitted in the same or a similar form as a final examination paper.
+\par\smallskip
+\@declarationchoice{\@declarationai}{yes}{I have used AI-based applications and/or tools and documented them in the appendix \enquote{Use of AI-based applications}.}
+
+\@declarationheading{B) Declaration regarding the publication of bachelor's or master's thesis}
+Two years after graduation, the thesis is offered to the archive of the University of Bremen for
+permanent archiving. The following are archived:
+\begin{enumerate}[label=\arabic*),nosep,leftmargin=1.8em]
+    \item Master's theses with a local or regional focus, as well as per subject and academic year 10\% of all Master's thesis
+    \item Bachelor's thesis for the first and last bachelor's degrees per subject and year.
+\end{enumerate}
+\smallskip
+\@declarationchoice{\@declarationarchive}{agree}{I agree that my thesis may be viewed by third parties in the university archive for academic purposes.}
+\@declarationchoice{\@declarationarchive}{after30}{I agree that my thesis may be viewed by third parties for academic purposes in the university archive after 30 years (in accordance with §7 para.~2 BremArchivG).}
+\@declarationchoice{\@declarationarchive}{disagree}{I do not consent to my thesis being made available in the university archive for third parties to view for academic purposes.}
+
+\@declarationheading{C) Declaration of consent for electronic checking of the work for plagiarism}
+Submitted papers can be checked for plagiarism using qualified software in accordance with §~18 of the
+General Section of the Bachelor's or Master's Degree Examination Regulations of the University of Bremen.
+For the purpose of checking for plagiarism, the upload to the server is done using the plagiarism software
+currently used by the University of Bremen.
+\par\smallskip
+\@declarationchoice{\@declarationplagiarism}{agree}{I agree that the work I have submitted and written will be stored permanently on the external server of the plagiarism software currently used by the University of Bremen, in a library belonging to the institution (accessed only by the University of Bremen), for the above-mentioned purpose.}
+\@declarationchoice{\@declarationplagiarism}{disagree}{I do not consent to the work I submitted and wrote being permanently stored on the external server of the plagiarism software currently used by the University of Bremen, in a library belonging to the institution (accessed only by the University of Bremen), for the above-mentioned purpose.}
+Consent to the permanent storage of the text is voluntary. Consent can be withdrawn at any time by making
+a declaration to this effect to the University of Bremen, with effect for the future. Further information on the
+checking of written work using plagiarism software can be found in the data protection and usage concept.
+This can be found on the University of Bremen website.
+
+\medskip
+\noindent
+With my signature, I confirm that I have read and understood the above explanations and confirm the
+accuracy of the information provided.
+
+\vspace{0.8cm}
+\noindent
+\begin{tabular}{@{}p{5cm}@{\hspace{2cm}}p{6cm}@{}}
+    \hrule\vspace{2pt}Date & \hrule\vspace{2pt}Signature
+\end{tabular}
+\endgroup
 \cleardoublepage
 }
 

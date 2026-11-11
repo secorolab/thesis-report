@@ -4,7 +4,7 @@ LaTeX template for bachelor and master thesis reports at [SECORO](https://secoro
 
 Select the thesis type via the class option, `\documentclass[master]{thesis_report}` or `\documentclass[bachelor]{thesis_report}`.
 
-The template is configured to be printed two-sided by default; this can be changed to a supervisor's preference by passing the option `oneside` instead, e.g. `\documentclass[master,oneside]{thesis_report}`.
+The template is configured to be printed two-sided by default. This can be changed to a supervisor's preference by passing the option `oneside` instead, e.g. `\documentclass[master,oneside]{thesis_report}`.
 
 The logo of an external institution can be added with the command `\thirdpartylogo{path/to/image}`.
 
@@ -12,7 +12,7 @@ If you are looking for the thesis proposal template, please head over to https:/
 
 ## Usage
 
-The main file of the report is `thesis.tex`; chapters, appendices, and the abstract are given in separate files in the `chapters` directory.
+The main file of the report is `thesis.tex`. Chapters, appendices, and the abstract are given in separate files in the `chapters` directory.
 
 The PDF has to be named according to the naming convention, i.e. your matriculation number (Matrikelnummer), first name (Vorname) and last name (Nachname) separated by underscores, e.g. `1234567_John_Doe.pdf`. Set this name once in `.latexmkrc`:
 
@@ -22,12 +22,12 @@ $jobname = '1234567_John_Doe';
 
 See the [Studienzentrum Informatik page on the final phase of studies](https://www.uni-bremen.de/fb3/studium/studienberatung-studienzentrum/studienzentrum-informatik/studienabschlussphase) for the submission requirements.
 
-## Declaration of Independent Work (Eigenständigkeitserklärung)
+The declarations (Eigenständigkeitserklärung) are included after the copyright page, your name, student ID and thesis title are filled in automatically. Fill out the declarations by setting your choices in `thesis.tex`:
 
-The official declarations are included after the copyright page. `declaration/` contains the fillable form and a flattened copy of it, which is the one included, since LaTeX drops form fields. Fill in the fillable form, then flatten it with "Print to PDF" in your PDF viewer or with ghostscript:
-
-```bash
-gs -q -dBATCH -dNOPAUSE -dSAFER -sDEVICE=pdfwrite -dPreserveAnnots=false -sOutputFile=declaration/Eigenstaendigkeitserklaerung.pdf declaration/Eigenstaendigkeitserklaerungen_BA_MA_deu_engl.pdf
+```latex
+\declarationai{yes}             % A) only if AI-based applications were used and documented in the appendix
+\declarationarchive{after30}    % B) agree, after30 or disagree
+\declarationplagiarism{agree}   % C) agree or disagree
 ```
 
 See the [Prüfungsamt of Faculty 3](https://www.uni-bremen.de/fb3/fachbereich/organisation/pruefungsamt) for the most up-to-date version of the form.
