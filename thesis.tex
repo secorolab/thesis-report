@@ -25,18 +25,11 @@ Second Supervisor
 % \subject{LaTeX testing}
 % \keywords{key1; key2; key3}
 
-
-% If someone other than you has made direct, substantial contributions to your work, you must declare that here!
-% If you have questions about authorship criteria, please discuss this with your supervisor(s).
-% Uncomment this and edit as necessary:
-% \jointwork{%
-%   \begin{authorship}
-%     \caitem{First Supervisor}{Conceptualization and supervision}
-%     \caitem{\theauthor, First Supervisor}{Dataset collection with X Robot, Training of ML algorithm,}
-%     \caitem{\theauthor, Student2}{Data collection and postprocessing for experiment X}
-%   \end{authorship}
-% }
-
+% Eigenständigkeitserklärung from the Prüfungsamt, included after the copyright page.
+% Replace declaration/Eigenstaendigkeitserklaerung.pdf with your filled-in and flattened form (see README).
+% By default, pages 2-4 of the official form are included (page 1 only contains notes).
+% \declarationfile{declaration/Eigenstaendigkeitserklaerung.pdf}
+% \declarationpages{2-4}
 
 \begin{document}
 \frontmatter
@@ -50,8 +43,7 @@ Second Supervisor
 %	PREFACE
 %----------------------------------------------------------------------------------------
 \pagestyle{plain}
-\cleardoublepage
-\statementpage
+\declarationpage
 
 \subfile{chapters/abstract}
 \subfile{chapters/acknowledgment}

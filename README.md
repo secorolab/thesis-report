@@ -22,6 +22,16 @@ $jobname = '1234567_John_Doe';
 
 See the [Studienzentrum Informatik page on the final phase of studies](https://www.uni-bremen.de/fb3/studium/studienberatung-studienzentrum/studienzentrum-informatik/studienabschlussphase) for the submission requirements.
 
+## Declaration of Independent Work (Eigenständigkeitserklärung)
+
+The official declarations are included after the copyright page. `declaration/` contains the fillable form and a flattened copy of it, which is the one included, since LaTeX drops form fields. Fill in the fillable form, then flatten it with "Print to PDF" in your PDF viewer or with ghostscript:
+
+```bash
+gs -q -dBATCH -dNOPAUSE -dSAFER -sDEVICE=pdfwrite -dPreserveAnnots=false -sOutputFile=declaration/Eigenstaendigkeitserklaerung.pdf declaration/Eigenstaendigkeitserklaerungen_BA_MA_deu_engl.pdf
+```
+
+See the [Prüfungsamt of Faculty 3](https://www.uni-bremen.de/fb3/fachbereich/organisation/pruefungsamt) for the most up-to-date version of the form.
+
 ## Building
 
 Build the PDF with
