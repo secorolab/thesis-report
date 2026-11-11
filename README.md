@@ -12,17 +12,25 @@ If you are looking for the thesis proposal template, please head over to https:/
 
 ## Usage
 
-The main file of the report is `FLastName-ThesisReport.tex`; chapters, appendices, and the abstract are given in separate files in the `chapters` directory.
+The main file of the report is `thesis.tex`; chapters, appendices, and the abstract are given in separate files in the `chapters` directory.
 
-Please make sure to change name of the file to match the naming convention, i.e. first letter of your first name followed by your last name, e.g. `JDoe-ThesisReport.tex`. Also update the file name in the first two lines of each file in `chapters`, so that the chapters can still be compiled on their own.
+The PDF has to be named according to the naming convention, i.e. your matriculation number (Matrikelnummer), first name (Vorname) and last name (Nachname) separated by underscores, e.g. `1234567_John_Doe.pdf`. Set this name once in `.latexmkrc`:
+
+```perl
+$jobname = '1234567_John_Doe';
+```
+
+See the [Studienzentrum Informatik page on the final phase of studies](https://www.uni-bremen.de/fb3/studium/studienberatung-studienzentrum/studienzentrum-informatik/studienabschlussphase) for the submission requirements.
 
 ## Building
 
 Build the PDF with
 
 ```bash
-latexmk -pdf FLastName-ThesisReport.tex
+latexmk thesis.tex
 ```
+
+latexmk reads `.latexmkrc` and writes the PDF under the name set there. Other build tools (e.g. running `pdflatex` directly, or Overleaf, which always produces `output.pdf`) ignore it, so rename the PDF before submitting in that case.
 
 The bibliography uses biblatex with biber; only works cited with `\cite` appear in the references.
 
