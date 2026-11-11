@@ -1,34 +1,21 @@
-%
-% LaTeX2e Style for MAS R&D and master thesis reports
-% Author: Argentina Ortega Sainz, Hochschule Bonn-Rhein-Sieg, Germany
-% Please feel free to send issues, suggestions or pull requests to:
-% https://github.com/mas-group/project-report
-% Based on the template created by Ronni Hartanto in 2003
-%
+\documentclass[master]{thesis_report}
+% \documentclass[bachelor]{thesis_report}
+% The report is two-sided by default; pass oneside for single-sided printing, e.g.
+% \documentclass[master,oneside]{thesis_report}
 
-\documentclass[thesis]{mas_report}
-% \documentclass[rnd]{mas_report}
+\addbibresource{bibliography.bib} % Use the bibliography.bib file as the source of references
 
 % ****************************************************
 % THIS INFORMATION SHOULD BE UPDATED FOR YOUR REPORT
 % ****************************************************
-\author{Your Name}
-\title{Project title}
-
-% Please note that the \phdsupervisor command is optional, and is usually
-% used when your research is done in the context of a PhD project.
-% The command updates the report copyright to include your supervisor; if, on the other hand, the \phdsupervisor is not used or is empty, the copyright includes only the student.
-% If this is not the case, you can always manually include your supervisors' name.
-% If you have questions on whether this applies to your project, get in touch with your supervisor!
-% After filling \phdsupervisor, you can use \thephdsupervisor in the report, e.g. in the title or to specifiy joint work. Make sure you spell it correctly!
-% \phdsupervisor{PhD Student}
-% \phdproject{Title of PhD}
+\author{First Name Last Name}
+\title{Thesis Title}
+\studyprogram{Study Program}
+% \faculty{Faculty 3 -- Mathematics and Computer Science}
 
 \supervisors{%
-First supervisor\\
-Second Supervisor\\
-Third Supervisor
-% \thephdsupervisor
+First Supervisor\\
+Second Supervisor
 }
 \date{Month 20XX}
 
@@ -44,8 +31,8 @@ Third Supervisor
 % Uncomment this and edit as necessary:
 % \jointwork{%
 %   \begin{authorship}
-%     \caitem{\thephdsupervisor}{Conceptualization and supervision}
-%     \caitem{\theauthor, \thephdsupervisor}{Dataset collection with X Robot, Training of ML algorithm,}
+%     \caitem{First Supervisor}{Conceptualization and supervision}
+%     \caitem{\theauthor, First Supervisor}{Dataset collection with X Robot, Training of ML algorithm,}
 %     \caitem{\theauthor, Student2}{Data collection and postprocessing for experiment X}
 %   \end{authorship}
 % }
@@ -54,12 +41,10 @@ Third Supervisor
 \begin{document}
 \frontmatter
 
-\begin{titlepage}
-    \maketitle
-\end{titlepage}
+\maketitle
 
 \cleardoublepage
-\copyrightpage{2020}
+\copyrightpage{\the\year}
 
 %----------------------------------------------------------------------------------------
 %	PREFACE
@@ -106,7 +91,6 @@ Third Supervisor
 %-------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %-------------------------------------------------------------------------------
-\bibliographystyle{IEEEtran}
-\bibliography{bibliography} % Use the bibliography.bib file as the source of references
+\printbibliography[heading=bibintoc,title={References}]
 
 \end{document}
